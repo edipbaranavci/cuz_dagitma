@@ -26,6 +26,9 @@ class PersonsView extends StatelessWidget {
 class _PersonsView extends StatelessWidget {
   const _PersonsView({Key? key}) : super(key: key);
 
+  final String emptyPersonTitle = 'Henüz Kimseyi Eklemediniz!';
+  final String deleteToolTipMessage = 'Sil';
+
   void openAddPersonDialog(BuildContext context) {
     final cubit = context.read<PersonsCubit>();
     showDialog(
@@ -59,23 +62,34 @@ class _PersonsView extends StatelessWidget {
       builder: (context, state) {
         final personList = state.personListModel?.personList ?? [];
         if (personList.isEmpty) {
-          return Center(
-            child: Card(
-              child: Padding(
-                padding: context.paddingNormal,
-                child: const Text('Henüz Kimseyi Eklemediniz!'),
-              ),
-            ),
-          );
+          return buildEmptyCard(context);
         } else {
           return ListView.builder(
             itemCount: personList.length,
+            padding: context.paddingLow,
             itemBuilder: (context, index) {
               return buildCard(personList[index], index);
             },
           );
         }
       },
+    );
+  }
+
+  Center buildEmptyCard(BuildContext context) {
+    return Center(
+      child: Card(
+        color: context.colorScheme.primary,
+        child: Padding(
+          padding: context.paddingNormal,
+          child: Text(
+            emptyPersonTitle,
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: context.colorScheme.onPrimary,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -86,7 +100,7 @@ class _PersonsView extends StatelessWidget {
           title: Text(title),
           trailing: CustomIconButton(
             iconData: Icons.delete,
-            toolTip: 'Sil',
+            toolTip: deleteToolTipMessage,
             onTap: () => context.read<PersonsCubit>().removePerson(index),
           ),
         ),

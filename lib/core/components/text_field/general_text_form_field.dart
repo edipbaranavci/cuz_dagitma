@@ -4,7 +4,7 @@ import 'package:kartal/kartal.dart';
 class GeneralTextFormField extends StatelessWidget {
   const GeneralTextFormField({
     this.labelText,
-    required this.controller,
+    this.controller,
     this.isEnabled = true,
     this.obscureText = false,
     this.enableInteractiveSelection,
@@ -22,7 +22,7 @@ class GeneralTextFormField extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool isEnabled;
   final bool? enableInteractiveSelection;

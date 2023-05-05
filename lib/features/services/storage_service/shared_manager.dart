@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,19 +26,21 @@ class SharedManager {
 
   Future<bool> setPersonValues(Map<String, dynamic> personValues) async {
     final pref = await SharedPreferences.getInstance();
-
     return pref.setString(_Enums.presonValues.name, json.encode(personValues));
   }
 
-  Future<Map<String, dynamic>?> getPersonValue() async {
+  Future<Map<String, dynamic>> getPersonValues() async {
     final pref = await SharedPreferences.getInstance();
     try {
       final map = pref.getString(_Enums.presonValues.name);
-      return json.decode(map ?? '');
+      if (map is String) {
+        return json.decode(map) as Map<String, dynamic>;
+      } else {
+        return {};
+      }
     } catch (e) {
-      // ignore: avoid_print
-      print(e);
-      return null;
+      log('$e');
+      return {};
     }
   }
 }
