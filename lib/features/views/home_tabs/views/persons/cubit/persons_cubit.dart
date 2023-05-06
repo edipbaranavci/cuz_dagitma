@@ -65,7 +65,7 @@ class PersonsCubit extends Cubit<PersonsState> {
     final personList = state.personListModel?.personList ?? [];
     personList.add(newPersonController.text);
     final map = await _sharedManager.getPersonValues();
-    map[newPersonController.text] = 'a';
+    map[newPersonController.text] = '4. - 5. - 6.';
     await _sharedManager.setPersonValues(map);
     await _sharedManager.setPersonList(personList);
     await _getPersonList();

@@ -65,6 +65,8 @@ class CustomDialog extends StatelessWidget {
         side: const BorderSide(color: Colors.grey),
       ),
       actions: actions,
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsOverflowAlignment: OverflowBarAlignment.center,
       content: SizedBox(
         width: context.width * .9,
         child: child,

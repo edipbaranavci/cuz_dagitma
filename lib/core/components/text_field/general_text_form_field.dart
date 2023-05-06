@@ -64,10 +64,13 @@ class GeneralTextFormField extends StatelessWidget {
         label: labelText == null ? null : buildLabel(context),
         hintText: hintText,
         hintStyle: context.textTheme.bodyMedium?.copyWith(
-          color: hintTextColor ?? Colors.white,
+          color: hintTextColor ?? context.colorScheme.secondary,
         ),
         suffixIcon: suffixIcon,
         border: border ?? _inputBorder,
+        errorStyle: context.textTheme.labelSmall?.copyWith(
+          color: Colors.red,
+        ),
         enabledBorder: border ?? _inputBorder,
         disabledBorder: border ?? _inputBorder,
         focusedBorder: border ?? _inputBorder,

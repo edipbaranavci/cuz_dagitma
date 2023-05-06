@@ -29,12 +29,11 @@ class _PersonsView extends StatelessWidget {
   final String emptyPersonTitle = 'Henüz Kimseyi Eklemediniz!';
   final String deleteToolTipMessage = 'Sil';
 
-  void openAddPersonDialog(BuildContext context) {
-    final cubit = context.read<PersonsCubit>();
+  void openAddPersonDialog(BuildContext contextt) {
     showDialog(
-      context: context,
+      context: contextt,
       builder: (context) => BlocProvider<PersonsCubit>.value(
-        value: cubit,
+        value: contextt.read<PersonsCubit>(),
         child: const _PersonAddDialog(),
       ),
     );

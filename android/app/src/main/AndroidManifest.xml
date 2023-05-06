@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ekabav.cuz_dagitma">
    <application
-        android:label="cuz_dagitma"
+        android:label="Cüz Dağıtma"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
