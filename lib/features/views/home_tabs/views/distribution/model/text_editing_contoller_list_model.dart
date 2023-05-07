@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 
 class TextEditingContollerListModel extends Equatable {
   final List<TextEditingController> textEditingControllerList;
-  TextEditingContollerListModel({
+  const TextEditingContollerListModel({
     required this.textEditingControllerList,
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [textEditingControllerList];
 }

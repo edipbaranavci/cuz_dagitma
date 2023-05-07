@@ -30,6 +30,7 @@ class DistributionCubit extends Cubit<DistributionState> {
     final map = await _sharedManager.getPersonValues();
     if (map.isNotEmpty) {
       List<TextEditingController> textEditingControllerList = [];
+      // ignore: unused_local_variable
       for (var element in map.values) {
         textEditingControllerList.add(TextEditingController());
       }

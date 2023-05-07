@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kartal/kartal.dart';
 
 import '../cubit/home_tabs_cubit.dart';
 import 'distribution/view/distribution_view.dart';
@@ -36,7 +37,7 @@ class _HomeTabsView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            buildTabBar(cubit),
+            buildTabBar(cubit, context),
             buildTabBarView(cubit),
           ],
         ),
@@ -57,9 +58,12 @@ class _HomeTabsView extends StatelessWidget {
     );
   }
 
-  TabBar buildTabBar(HomeTabsCubit cubit) {
+  TabBar buildTabBar(HomeTabsCubit cubit, BuildContext context) {
     return TabBar(
       controller: cubit.tabController,
+      labelStyle: context.textTheme.titleMedium,
+      padding: EdgeInsets.zero,
+      splashBorderRadius: context.lowBorderRadius,
       tabs: const [
         Tab(text: 'Kişiler'),
         Tab(text: 'Cüz Dağıtımı'),

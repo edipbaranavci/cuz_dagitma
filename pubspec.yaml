@@ -40,14 +40,12 @@ dependencies:
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
 
-  # either
-  either_dart: ^0.4.0
-
   # google fonts
   google_fonts: ^4.0.4
   
   # ui
   kartal: ^2.8.0
+
 
   # save user details
   shared_preferences: ^2.1.0

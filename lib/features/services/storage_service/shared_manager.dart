@@ -21,7 +21,17 @@ class SharedManager {
 
   Future<List<String>> getRaffleList() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getStringList(_Enums.raffleList.name) ?? [];
+    return pref.getStringList(_Enums.raffleList.name) ?? await getPresonList();
+  }
+
+  Future<bool> setCheckRaffleList(List<String> raffleList) async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.setStringList(_Enums.checkRaffleList.name, raffleList);
+  }
+
+  Future<List<String>> getCheckRaffleList() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getStringList(_Enums.checkRaffleList.name) ?? [];
   }
 
   Future<bool> setPersonValues(Map<String, dynamic> personValues) async {
@@ -48,5 +58,6 @@ class SharedManager {
 enum _Enums {
   personList,
   raffleList,
+  checkRaffleList,
   presonValues,
 }

@@ -1,7 +1,7 @@
-import 'package:cuz_dagitma/core/components/button/custom_elevated_text_button.dart';
-import 'package:cuz_dagitma/core/components/dialog/custom_dialog.dart';
-import 'package:cuz_dagitma/core/components/text_field/general_text_form_field.dart';
-import 'package:cuz_dagitma/core/extensions/string/string_extension.dart';
+import '../../../../../../core/components/button/custom_elevated_text_button.dart';
+import '../../../../../../core/components/dialog/custom_dialog.dart';
+import '../../../../../../core/components/text_field/general_text_form_field.dart';
+import '../../../../../../core/extensions/string/string_extension.dart';
 import 'package:kartal/kartal.dart';
 
 import '../cubit/distribution_cubit.dart';
