@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,21 +56,35 @@ class PersonsCubit extends Cubit<PersonsState> {
     if (control == true) {
       map.remove(name);
       await _sharedManager.setPersonValues(map);
-      // burdan devam edecek
+      final raffleList = await _sharedManager.getRaffleList();
+      final checkRaffleList = await _sharedManager.getCheckRaffleList();
+      if (raffleList.contains(name)) {
+        raffleList.remove(name);
+        await _sharedManager.setRaffleList(raffleList);
+      } else if (checkRaffleList.contains(name)) {
+        checkRaffleList.remove(name);
+        await _sharedManager.setCheckRaffleList(checkRaffleList);
+      }
     }
   }
 
-  Future<void> addPerson() async {
+  Future<bool> addPerson() async {
     scaffoldKey.showLoadingBar();
     final personList = state.personListModel?.personList ?? [];
-    personList.add(newPersonController.text);
-    final map = await _sharedManager.getPersonValues();
-    map[newPersonController.text] = '4. - 5. - 6.';
-    await _sharedManager.setPersonValues(map);
-    await _sharedManager.setPersonList(personList);
-    await _getPersonList();
-    scaffoldKey.showGreatSnackBar(addedPersonMessage);
-    newPersonController.clear();
-    return;
+    final control = personList.contains(newPersonController.text);
+    if (control == false) {
+      personList.add(newPersonController.text);
+      final map = await _sharedManager.getPersonValues();
+      map[newPersonController.text] = '4. - 5.';
+      final raffleList = await _sharedManager.getRaffleList();
+      raffleList.add(newPersonController.text);
+      await _sharedManager.setRaffleList(raffleList);
+      await _sharedManager.setPersonValues(map);
+      await _sharedManager.setPersonList(personList);
+      await _getPersonList();
+      scaffoldKey.showGreatSnackBar(addedPersonMessage);
+      newPersonController.clear();
+    }
+    return control;
   }
 }

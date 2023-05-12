@@ -27,7 +27,16 @@ class _PersonAddDialog extends StatelessWidget {
             CustomElevatedTextButton(
               onPressed: () {
                 if (cubit.newPersonFormKey.currentState!.validate()) {
-                  cubit.addPerson().then((value) => context.pop());
+                  cubit.addPerson().then((value) {
+                    if (value == false) {
+                      context.pop();
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const _PersonAvailableDialog(),
+                      );
+                    }
+                  });
                 }
               },
               title: submitButtonTitle,

@@ -1,3 +1,4 @@
+import 'package:cuz_dagitma/core/components/button/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
@@ -7,6 +8,7 @@ import '../../../../../../core/components/dialog/custom_dialog.dart';
 import '../cubit/raffle_cubit.dart';
 
 part '../view_models/raffle_dialog.dart';
+part '../view_models/raffle_reset_dialog.dart';
 
 class RaffleView extends StatelessWidget {
   const RaffleView({Key? key}) : super(key: key);
@@ -42,10 +44,25 @@ class _RaffleView extends StatelessWidget {
     );
   }
 
+  Future<void> openRaffleResetDialog(BuildContext contextt) async {
+    final cubit = contextt.read<RaffleCubit>();
+    final control = await showDialog<bool>(
+      context: contextt,
+      builder: (context) => BlocProvider<RaffleCubit>.value(
+        value: cubit,
+        child: const _RaffleResetDialog(),
+      ),
+    );
+    if (control == true) {
+      cubit.resetRafflePersons();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<RaffleCubit>();
     return Scaffold(
+      key: cubit.scaffoldKey,
       body: Padding(
         padding: context.paddingLow,
         child: BlocBuilder<RaffleCubit, RaffleState>(
@@ -77,7 +94,7 @@ class _RaffleView extends StatelessWidget {
                 Row(
                   children: [
                     CustomElevatedTextButton(
-                      onPressed: () => cubit.resetRafflePersons(),
+                      onPressed: () => openRaffleResetDialog(context),
                       title: resetButtonTitle,
                     ),
                     context.emptySizedWidthBoxLow3x,
@@ -152,17 +169,23 @@ class _RaffleView extends StatelessWidget {
   Widget buildCheckRaffleListTile(String title) {
     return Card(
       color: Colors.grey,
-      child: ListTile(
-        title: Builder(
-          builder: (context) {
-            return Text(
+      child: Builder(
+        builder: (context) {
+          return ListTile(
+            title: Text(
               title,
               style: context.textTheme.bodyMedium?.copyWith(
                 decoration: TextDecoration.lineThrough,
               ),
-            );
-          },
-        ),
+            ),
+            trailing: CustomIconButton(
+              iconData: Icons.delete,
+              toolTip: 'Geri Sil',
+              onTap: () =>
+                  context.read<RaffleCubit>().removeCheckRafflePerson(title),
+            ),
+          );
+        },
       ),
     );
   }

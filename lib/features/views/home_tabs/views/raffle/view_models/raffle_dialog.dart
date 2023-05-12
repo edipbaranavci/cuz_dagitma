@@ -4,7 +4,7 @@ class _RaffleDialog extends StatelessWidget {
   const _RaffleDialog();
   final String title = 'Kurada Çekilen Kişi';
   final String submitButtonTitle = 'Onaylıyorum';
-  final String cancelButtonTitle = 'Tekrar Kura Çek';
+  final String cancelButtonTitle = 'Kapat';
 
   @override
   Widget build(BuildContext context) {

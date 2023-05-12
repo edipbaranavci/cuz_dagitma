@@ -24,9 +24,9 @@ class SharedManager {
     return pref.getStringList(_Enums.raffleList.name) ?? await getPresonList();
   }
 
-  Future<bool> setCheckRaffleList(List<String> raffleList) async {
+  Future<bool> setCheckRaffleList(List<String> checkRaffleList) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setStringList(_Enums.checkRaffleList.name, raffleList);
+    return pref.setStringList(_Enums.checkRaffleList.name, checkRaffleList);
   }
 
   Future<List<String>> getCheckRaffleList() async {

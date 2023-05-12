@@ -1,5 +1,7 @@
 import 'dart:math' as math show Random;
+import 'package:cuz_dagitma/core/extensions/scaffold_messenger/snack_bar.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../models/person/person_list_model.dart';
@@ -13,6 +15,9 @@ class RaffleCubit extends Cubit<RaffleState> {
   }
 
   final _sharedManager = SharedManager();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final String resetRaffleListsMessage = 'Kura listeleri sıfırlandı!';
 
   Future<void> _init() async {
     await _getRafflePersonList();
@@ -20,6 +25,16 @@ class RaffleCubit extends Cubit<RaffleState> {
 
   int get randomIndex => math.Random()
       .nextInt(state.rafflePersonListModel?.personList?.length ?? 0);
+
+  Future<void> removeCheckRafflePerson(String name) async {
+    final raffleList = await _sharedManager.getRaffleList();
+    final checkRaffleList = await _sharedManager.getCheckRaffleList();
+    checkRaffleList.remove(name);
+    raffleList.insert(0, name);
+    await _sharedManager.setCheckRaffleList(checkRaffleList);
+    await _sharedManager.setRaffleList(raffleList);
+    await _init();
+  }
 
   void rafflePerson() {
     final list = state.rafflePersonListModel?.personList ?? [];
@@ -32,6 +47,7 @@ class RaffleCubit extends Cubit<RaffleState> {
     await _sharedManager.setRaffleList(personList);
     await _sharedManager.setCheckRaffleList([]);
     await _init();
+    scaffoldKey.showGreatSnackBar(resetRaffleListsMessage);
     return;
   }
 

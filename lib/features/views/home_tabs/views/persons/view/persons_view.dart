@@ -10,6 +10,7 @@ import '../../../../../../core/extensions/string/string_extension.dart';
 import '../cubit/persons_cubit.dart';
 
 part '../view_models/person_add_dialog.dart';
+part '../view_models/person_available_dialog.dart';
 
 class PersonsView extends StatelessWidget {
   const PersonsView({Key? key}) : super(key: key);
@@ -63,12 +64,26 @@ class _PersonsView extends StatelessWidget {
         if (personList.isEmpty) {
           return buildEmptyCard(context);
         } else {
-          return ListView.builder(
-            itemCount: personList.length,
-            padding: context.paddingLow,
-            itemBuilder: (context, index) {
-              return buildCard(personList[index], index);
-            },
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Card(
+                child: ListTile(
+                  title: Text(
+                    'Eklenen Kişi Sayısı: ${state.personListModel?.personList?.length ?? 0}',
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: personList.length,
+                  padding: context.paddingLow,
+                  itemBuilder: (context, index) {
+                    return buildCard(personList[index], index);
+                  },
+                ),
+              ),
+            ],
           );
         }
       },
