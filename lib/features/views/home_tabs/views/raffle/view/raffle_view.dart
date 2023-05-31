@@ -1,9 +1,9 @@
-import 'package:cuz_dagitma/core/components/button/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../../../../../core/components/button/custom_elevated_text_button.dart';
+import '../../../../../../core/components/button/custom_icon_button.dart';
 import '../../../../../../core/components/dialog/custom_dialog.dart';
 import '../cubit/raffle_cubit.dart';
 
@@ -33,6 +33,7 @@ class _RaffleView extends StatelessWidget {
   final String notRafflePesonsTitle = 'Kuraya Çıkmayanlar';
   final String rafflePesonsTitle = 'Kuraya Çıkanlar';
   final String peopleTitle = 'kişi';
+  final String deleteToolMessage = 'Geri Sil';
 
   void openRaffleDialog(BuildContext contextt) {
     showDialog(
@@ -180,7 +181,7 @@ class _RaffleView extends StatelessWidget {
             ),
             trailing: CustomIconButton(
               iconData: Icons.delete,
-              toolTip: 'Geri Sil',
+              toolTip: deleteToolMessage,
               onTap: () =>
                   context.read<RaffleCubit>().removeCheckRafflePerson(title),
             ),

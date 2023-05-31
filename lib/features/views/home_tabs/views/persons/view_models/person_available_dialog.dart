@@ -3,7 +3,7 @@ part of '../view/persons_view.dart';
 class _PersonAvailableDialog extends StatelessWidget {
   const _PersonAvailableDialog({super.key});
 
-  final String title = 'Kullanıcı Mevcut';
+  final String title = 'Kişi Mevcut';
   final String message =
       'Lütfen farklı bir isim giriniz veya öncekini siliniz!';
   final String closeButtonTitle = 'Kapat';
